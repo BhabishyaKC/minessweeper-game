@@ -97,7 +97,7 @@ const Minesweeper = () => {
     setTimer(30);
     setScore(0);
     setGameOver(false);
-    setStarted(true); // Immediately restart the timer
+    setStarted(true); 
   };
 
   return (
