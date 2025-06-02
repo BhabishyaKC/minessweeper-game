@@ -14,7 +14,6 @@ const generateEmptyGrid = () => {
 const placeBombsAndNumbers = () => {
   const grid = generateEmptyGrid();
 
-  
   let bombsPlaced = 0;
   while (bombsPlaced < BOMBS_COUNT) {
     const r = Math.floor(Math.random() * ROWS);
@@ -24,7 +23,6 @@ const placeBombsAndNumbers = () => {
       bombsPlaced++;
     }
   }
-
 
   const directions = [
     [-1, -1], [-1, 0], [-1, 1],
@@ -58,7 +56,6 @@ const Minesweeper = () => {
   const [started, setStarted] = useState(false);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-
 
   useEffect(() => {
     if (!started || timer <= 0 || gameOver) return;
@@ -95,6 +92,14 @@ const Minesweeper = () => {
     }
   };
 
+  const resetGame = () => {
+    setMineGrid(placeBombsAndNumbers());
+    setTimer(30);
+    setScore(0);
+    setGameOver(false);
+    setStarted(true); // Immediately restart the timer
+  };
+
   return (
     <div
       className="main-contaner flex items-center justify-center min-h-screen bg-gray-300"
@@ -107,9 +112,17 @@ const Minesweeper = () => {
         </div>
 
         {gameOver && (
-          <p className="text-center text-xl text-red-500 font-semibold mb-5">
-            💣 Game Over!!! You clicked on a mine!
-          </p>
+          <div className="text-center mb-5">
+            <p className="text-xl text-red-500 font-semibold mb-3">
+              💣 Game Over!!! You clicked on a mine!
+            </p>
+            <button
+              onClick={resetGame}
+              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl shadow cursor-pointer"
+            >
+              🔁 Restart Game
+            </button>
+          </div>
         )}
 
         <div className="flex flex-col space-y-[2px]">
